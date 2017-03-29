@@ -364,19 +364,14 @@ function showError(container, errorMessage) {
         elems.count.style.border = "1px solid #ff0000";
         err++
       }
-      else if (elems.count.value.search(/[1-9]/)==-1) {
+      else if ((elems.count.value.search(/[1-9]/)==-1)||(elems.count.value.search(/[A-zА-яЁё]/)!=-1)) {
           showError(elems.count.parentNode, 'Введите число');
           elems.count.style.border = "1px solid #ff0000";
       err++;
     }
 
 
-      resetError(elems.price.parentNode);
-      if (!elems.price.value) {
-        showError(elems.price.parentNode, ' Укажите цену.');
 
-
-      }
 
     if (err>0){
       return false;
