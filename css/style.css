@@ -30,7 +30,8 @@ table {
     margin-top: 20px;
    }
 td, th {
-    padding: 5px; /* Поля вокруг текста */
+  width:33%;
+    padding: 3px; /* Поля вокруг текста */
     background: white;
     vertical-align: middle;
     text-align:center;
@@ -54,8 +55,6 @@ margin-left: 40px;
 
 .sort{
   background: url(../img/arrowUp.png) no-repeat;
-
-  display: block;
   width: 18px;
   height: 15px;
   float:right;
