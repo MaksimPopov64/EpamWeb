@@ -53,8 +53,8 @@ margin-left: 40px;
   }
 
 .sort{
-  /*background: url(../img/arrowUP.png) no-repeat;*/
-  background: no-repeat;
+  background: url(../img/arrowUp.png) no-repeat;
+
   display: block;
   width: 18px;
   height: 15px;

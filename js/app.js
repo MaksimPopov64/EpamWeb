@@ -97,12 +97,12 @@ var nameSort = document.querySelector(".sort")
 
         SortName();
        if (y){
-         nameSort.innerHTML="";
+
         nameSort.style.background = 'url(img/arrowUP.jpg) no-repeat';
          CreateGoods();
       }
       else {
-        nameSort.innerHTML="";
+      
         nameSort.style.background = 'url(img/arrowDown.png) no-repeat';
 
       goods.reverse();
