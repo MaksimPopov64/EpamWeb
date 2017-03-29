@@ -47,6 +47,8 @@ var add = document.getElementById('e')
               if ((name1.value!="") && (f))
 
               {
+                if (price.value==""){price.value=0;}
+                
                 goods.push(new Goods(name1.value,count.value,price.value));
 
                    name1.value="";
@@ -151,7 +153,8 @@ var nameSort = document.querySelector(".sort")
 
                         goods[number].name=String(name1.value);
                         goods[number].count=Number(count.value);
-                        goods[number].price=Number(price.value);
+                        if (price.value==""){goods[number].price=0;}
+                        else { goods[number].price=Number(price.value);}
                         goods.push(goods[number]);
                         goods.splice(target.parentNode.parentNode.parentNode.rowIndex-1,1);
                         name1.value="";
