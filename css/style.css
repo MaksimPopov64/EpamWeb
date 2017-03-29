@@ -54,6 +54,7 @@ margin-left: 40px;
 
 .sort{
   /*background: url(../img/arrowUP.png) no-repeat;*/
+  background: no-repeat;
   display: block;
   width: 18px;
   height: 15px;

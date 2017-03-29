@@ -2,9 +2,7 @@
 
 
   var  form = document.getElementsByTagName("form");
-document.getElementById('price').style.background = 'url(img/arrowDown.png) no-repeat';
 
-document.querySelector(".sort").style.background = 'url(img/arrowUP.png) no-repeat';
 
 
 
@@ -76,10 +74,13 @@ var priceSort = document.getElementById('price');
      priceSort.onclick = function(){
          SortPrice();
       if (x){
+      priceSort.innerHTML="";
        priceSort.style.background = 'url(img/arrowUP.png) no-repeat';
        CreateGoods();
      }
-     else {priceSort.style.background = 'url(img/arrowDown.png) no-repeat';
+     else {
+       priceSort.innerHTML="";
+       priceSort.style.background = 'url(img/arrowDown.png) no-repeat';
      goods.reverse();
      CreateGoods();
    }
@@ -96,10 +97,13 @@ var nameSort = document.querySelector(".sort")
 
         SortName();
        if (y){
+         nameSort.innerHTML="";
         nameSort.style.background = 'url(img/arrowUP.png) no-repeat';
          CreateGoods();
       }
-      else {nameSort.style.background = 'url(img/arrowDown.png) no-repeat';
+      else {
+        nameSort.innerHTML="";
+        nameSort.style.background = 'url(img/arrowDown.png) no-repeat';
 
       goods.reverse();
 
