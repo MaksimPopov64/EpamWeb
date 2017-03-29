@@ -75,7 +75,7 @@ var priceSort = document.getElementById('price');
          SortPrice();
       if (x){
       priceSort.innerHTML="";
-       priceSort.style.background = 'url(img/arrowUP.png) no-repeat';
+       priceSort.style.background = 'url(img/arrowUP.jpg) no-repeat';
        CreateGoods();
      }
      else {
@@ -98,7 +98,7 @@ var nameSort = document.querySelector(".sort")
         SortName();
        if (y){
          nameSort.innerHTML="";
-        nameSort.style.background = 'url(img/arrowUP.png) no-repeat';
+        nameSort.style.background = 'url(img/arrowUP.jpg) no-repeat';
          CreateGoods();
       }
       else {
