@@ -1,4 +1,11 @@
+
+
+
   var  form = document.getElementsByTagName("form");
+document.getElementById('price').style.background = 'url(img/arrowUP.png) no-repeat';
+
+document.querySelector(".sort").style.background = 'url(img/arrowUP.png) no-repeat';       
+
 
 
 function Goods(name, count, price)
