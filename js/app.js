@@ -32,7 +32,7 @@ for (var i = 0; i < 6; i++) {
  });
 
 }
-CreateTable(goods.length);
+AddRow(goods.length);
 
 CreateGoods();
 
@@ -59,7 +59,7 @@ add.onclick = function() {
 						if (price.value == "") {
 								price.value = 0;
 						}
-            CreateTable(1);
+            AddRow(1);
             goods.push({
               name: name1.value,
               count: count.value,
@@ -202,7 +202,7 @@ function CreateGoods()
 		}
 }
 
-function CreateTable(n) //структура таблицы
+function AddRow(n) //структура таблицы
 
 {
 
