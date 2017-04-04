@@ -5,6 +5,8 @@ var search = document.querySelector(".button");
 var add = document.getElementById('e');
 var table = document.getElementsByTagName("TBODY")[0];
 var filter = document.getElementsByTagName('input'); //находим все input
+var EditButton = document.querySelector(".column>a");
+var UpdateAdd = document.getElementById("Add/Update");
 var x = false;
 var y=false;
 
@@ -36,7 +38,7 @@ add.onclick = function() {
     UpdateAdd = document.getElementById("Add/Update");
 
     UpdateAdd.innerHTML = "Add";
-
+    UpdateAdd.style.background="green";
     UpdateAdd.onclick = function()
 
     {
@@ -61,13 +63,12 @@ add.onclick = function() {
             CreateGoods();
 
 
-
-
-            //CreateGoods(); //создаём новый список товаров
+            //очищаем роля
             name1.value = "";
             count.value = "";
             price.value = "";
             UpdateAdd.innerHTML = "Add/Update";
+            UpdateAdd.style.background="";
 
 
         }
@@ -123,7 +124,7 @@ nameSort.onclick = function() {
 
     }
     y = !y
-    console.log(y);
+
 
 
 }
@@ -143,11 +144,11 @@ table.onclick = function(event) {
     } else if (target.innerHTML == "Edit")
 
     {
-        c = document.querySelector(".column>a");
-        c.innerHTML = "Update";
-        number = target.getAttribute("number");
-        UpdateAdd = document.getElementById("Add/Update");
 
+        EditButton.innerHTML = "Update";
+        number = target.getAttribute("number");
+        target.style.background='red';
+        EditButton.style.background='red';
         UpdateAdd.onclick = function() {
             name1 = document.getElementById("nameInput");
             count = document.getElementById("countInput");
@@ -170,6 +171,8 @@ table.onclick = function(event) {
                 count.value = "";
                 price.value = "";
                 CreateGoods();
+                target.style.background='';
+                EditButton.style.background='';
             }
 
         }
