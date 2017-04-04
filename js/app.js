@@ -1,4 +1,14 @@
 var form = document.getElementsByTagName("form");
+//сортировка по цене
+var priceSort = document.getElementById('price');
+var x = false;
+var nameSort = document.querySelector(".sort");
+var y = false;
+var search = document.querySelector(".button");
+var add = document.getElementById('e');
+var table = document.getElementsByTagName("TBODY")[0];
+var filter = document.getElementsByTagName('input'); //находим все inputtbo
+
 
 
 
@@ -13,7 +23,7 @@ function Goods(name, count, price) {
 
 var goods = []; // создаём начальный список товаров
 //arr.forEach(Goods(item, i, arr) {
-for (var i = 0; i < 5; i++) {
+for (var i = 0; i < 6; i++) {
 
 	goods.push({
     name: 'Товар'+i,
@@ -26,11 +36,11 @@ CreateTable(goods.length);
 
 CreateGoods();
 
-var add = document.getElementById('e')
+
 
 add.onclick = function() {
 
-		var UpdateAdd = document.getElementById("Add/Update");
+		 UpdateAdd = document.getElementById("Add/Update");
 
 		UpdateAdd.innerHTML = "Add";
 
@@ -39,7 +49,6 @@ add.onclick = function() {
 		{
 
 				f = validate.call(form[0]);
-				console.log(f);
 				name1 = document.getElementById("nameInput");
 				count = document.getElementById("countInput");
 				price = document.getElementById("priceInput");
@@ -50,15 +59,24 @@ add.onclick = function() {
 						if (price.value == "") {
 								price.value = 0;
 						}
+            CreateTable(1);
+            goods.push({
+              name: name1.value,
+              count: count.value,
+              price: price.value
+           });
+           CreateGoods();
 
-						goods.push(new Goods(name1.value, count.value, price.value));
 
+
+
+            //CreateGoods(); //создаём новый список товаров
 						name1.value = "";
 						count.value = "";
 						price.value = "";
 						UpdateAdd.innerHTML = "Add/Update";
-						CreateTable(1); //добавляем одну строку
-						CreateGoods(); //создаём новый список товаров
+
+
 				}
 
 
@@ -67,14 +85,12 @@ add.onclick = function() {
 }
 //фильтрация
 
-var search = document.querySelector(".button")
+
 
 search.onclick = function() {
 		Filter();
 }
-//сортировка по цене
-var priceSort = document.getElementById('price');
-var x = false;
+
 priceSort.onclick = function() {
 		SortPrice();
 		if (x) {
@@ -92,9 +108,6 @@ priceSort.onclick = function() {
 }
 //сортировка по имени
 
-var nameSort = document.querySelector(".sort")
-
-var y = false;
 
 nameSort.onclick = function() {
 
@@ -118,28 +131,24 @@ nameSort.onclick = function() {
 }
 // Удаление и редактирование товаров
 
-var table = document.getElementsByTagName("TBODY")[0];
-
 table.onclick = function(event) {
 
-		var target = event.target; // где был клик?
+		  target = event.target; // где был клик?
 
 		if (target.innerHTML == "Delete") {
-				var confirmation = confirm("Вы уверены?");
+				 confirmation = confirm("Вы уверены?");
 				if (confirmation) {
-						var number = target.getAttribute("number");
+						 number = target.getAttribute("number");
 						goods.splice(target.parentNode.parentNode.parentNode.rowIndex - 1, 1); //удаляем товар из этой строки
-						console.log(goods.length);
-						console.log(target.parentNode.parentNode.parentNode.rowIndex);
 						table.deleteRow(target.parentNode.parentNode.parentNode.rowIndex);
 				}
 		} else if (target.innerHTML == "Edit")
 
 		{
-				var c = document.querySelector(".column>a");
+				 c = document.querySelector(".column>a");
 				c.innerHTML = "Update";
-				var number = target.getAttribute("number");
-				var UpdateAdd = document.getElementById("Add/Update");
+				 number = target.getAttribute("number");
+				 UpdateAdd = document.getElementById("Add/Update");
 
 				UpdateAdd.onclick = function() {
 						name1 = document.getElementById("nameInput");
@@ -177,11 +186,6 @@ function CreateGoods()
 { // вывод товаров в таблицу
 
 
-		var tbody = document.getElementsByTagName("TBODY")[0];
-
-		console.log(tbody.rows.length);
-		console.log(goods.length);
-
 		var nameList = document.querySelectorAll("td>a");
 		var countList = document.querySelectorAll(".count");
 		var priceList = document.querySelectorAll("td:nth-child(2)");
@@ -189,16 +193,55 @@ function CreateGoods()
 
 
 
-		for (var i = 0; i < goods.length; i++) {
+		for (i = 0; i < goods.length; i++) {
 
 				nameList[i].innerHTML = goods[i].name;
 				countList[i].innerHTML = goods[i].count;
 				priceList[i].innerHTML = '$' + String(goods[i].price);
 
 		}
+}
+
+function CreateTable(n) //структура таблицы
+
+{
 
 
+		for ( i = 0; i < n; i++) {
+				row = document.createElement("TR");
+				 td1 = document.createElement("TD");
+				 td2 = document.createElement("TD");
+				 td3 = document.createElement("TD");
+				row.appendChild(td1);
+				row.appendChild(td2);
+				row.appendChild(td3);
+				table.appendChild(row);
+				row.setAttribute("number", i);
+				 link = document.createElement("a");
+				td1.appendChild(link);
+				link.setAttribute("href", "#");
+			 div = document.createElement("div");
+				td1.appendChild(div);
+				div.classList.add('count');
+				 buttonDelete = document.createElement("div");
+				 buttonEdit = document.createElement("div");
+				buttonEdit.classList.add('button');
+				buttonDelete.classList.add('button');
+				td3.appendChild(buttonDelete);
+				td3.appendChild(buttonEdit);
+				DeleteLink = document.createElement("a");
+				buttonDelete.appendChild(DeleteLink);
+				DeleteLink.setAttribute("href", "#");
+				DeleteLink.setAttribute("number", i);
+				DeleteLink.innerHTML = "Delete";
+				 EditLink = document.createElement("a");
+				buttonEdit.appendChild(EditLink);
+				EditLink.setAttribute("href", "#");
+				EditLink.setAttribute("number", i);
+				EditLink.innerHTML = "Edit";
 
+
+		}
 }
 
 
@@ -206,13 +249,13 @@ function CreateGoods()
 function SortPrice() { // сортировка по цене
 
 
-		for (var i = 0; i < goods.length - 1; i++) {
+		for ( i = 0; i < goods.length - 1; i++) {
 
-				for (var j = 0; j < goods.length - 1 - i; j++) {
+				for ( j = 0; j < goods.length - 1 - i; j++) {
 
 						if (goods[j].price > goods[j + 1].price) {
 
-								var buf = goods[j];
+							 buf = goods[j];
 								goods[j] = goods[j + 1];
 								goods[j + 1] = buf;
 						}
@@ -225,9 +268,9 @@ function SortPrice() { // сортировка по цене
 
 function SortName() { // пузырьковая сортировка по имени
 
-		for (var i = 0; i < goods.length - 1; i++) {
+		for (i = 0; i < goods.length - 1; i++) {
 
-				for (var j = 0; j < goods.length - 1 - i; j++) {
+				for ( j = 0; j < goods.length - 1 - i; j++) {
 
 						if (goods[j + 1].name < goods[j].name) {
 
@@ -246,22 +289,17 @@ function SortName() { // пузырьковая сортировка по име
 }
 
 function Filter() {
-
-		var filter = document.getElementsByTagName('input'); //находим все input
-
-
-		var trs = document.querySelectorAll('tr'); // находим все строки
-
-		for (var j = 1; j < trs.length; j++) { // при каждом нажатии делаем строки видимыми
+    trs = document.querySelectorAll('tr'); // находим все строки
+		for (j = 1; j < trs.length; j++) { // при каждом нажатии делаем строки видимыми
 
 				trs[j].style.display = "";
 
 		}
-
-		if (filter[0].value != "") {
+             console.log(trs[j]);
+		if (filter[0].value!= "") {
 
 				// находим по подстроке название товара, если не удовлетворяет критериям - прячем строку таблицы
-				for (var j = 1; j < trs.length; j++) {
+				for (j = 1; j < trs.length; j++) {
 
 						if (String(goods[j - 1].name).toUpperCase().indexOf(String(filter[0].value).toUpperCase()) == -1) {
 
@@ -276,51 +314,11 @@ function Filter() {
 
 }
 
-function CreateTable(n) //структура таблицы
 
-{
-
-		var tbody = document.getElementsByTagName("TBODY")[0];
-		for (var i = 0; i < n; i++) {
-				var row = document.createElement("TR");
-				var td1 = document.createElement("TD");
-				var td2 = document.createElement("TD");
-				var td3 = document.createElement("TD");
-				row.appendChild(td1);
-				row.appendChild(td2);
-				row.appendChild(td3);
-				tbody.appendChild(row);
-				row.setAttribute("number", i);
-				var link = document.createElement("a");
-				td1.appendChild(link);
-				link.setAttribute("href", "#");
-				var div = document.createElement("div");
-				td1.appendChild(div);
-				div.classList.add('count');
-				var buttonDelete = document.createElement("div");
-				var buttonEdit = document.createElement("div");
-				buttonEdit.classList.add('button');
-				buttonDelete.classList.add('button');
-				td3.appendChild(buttonDelete);
-				td3.appendChild(buttonEdit);
-				var DeleteLink = document.createElement("a");
-				buttonDelete.appendChild(DeleteLink);
-				DeleteLink.setAttribute("href", "#");
-				DeleteLink.setAttribute("number", i);
-				DeleteLink.innerHTML = "Delete";
-				var EditLink = document.createElement("a");
-				buttonEdit.appendChild(EditLink);
-				EditLink.setAttribute("href", "#");
-				EditLink.setAttribute("number", i);
-				EditLink.innerHTML = "Edit";
-
-
-		}
-}
 
 function showError(container, errorMessage) {
 		container.className = 'error';
-		var msgElem = document.createElement('span');
+		msgElem = document.createElement('span');
 		msgElem.className = "error-message";
 		msgElem.innerHTML = errorMessage;
 		container.appendChild(msgElem);
@@ -335,12 +333,12 @@ function resetError(container) {
 
 
 function validate() {
-		var err = 0;
-		var elems = this.elements;
+		err = 0;
+		elems = this.elements;
 		elems.name.style.border = "1px solid green";
 		elems.count.style.border = "1px solid green";
-		console.log(elems.name.style);
-		resetError(elems.name.parentNode);
+
+    resetError(elems.name.parentNode);
 		if (!elems.name.value) {
 				showError(elems.name.parentNode, ' Укажите наименование.');
 				elems.name.style.border = "1px solid #ff0000";
