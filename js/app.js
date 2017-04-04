@@ -5,6 +5,8 @@ var search = document.querySelector(".button");
 var add = document.getElementById('e');
 var table = document.getElementsByTagName("TBODY")[0];
 var filter = document.getElementsByTagName('input'); //находим все input
+var x = false;
+var y=false;
 
 function Goods(name, count, price) {
     return {
@@ -81,9 +83,9 @@ add.onclick = function() {
 search.onclick = function() {
     Filter();
 }
-  x = false;
+
 priceSort.onclick = function() {
-  
+
     SortPrice();
 
     if (x) {
@@ -101,7 +103,7 @@ priceSort.onclick = function() {
 
 }
 //сортировка по имени
-var y=false;
+
 
 nameSort.onclick = function() {
 
