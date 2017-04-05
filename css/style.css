@@ -1,123 +1,106 @@
-body{
+body {}
 
+.menu>input {
+    float: left;
+    margin-bottom: 10px;
+    margin-right: 10px;
 }
 
-.menu>input{
-
-  float:left;
-  margin-bottom: 10px;
-  margin-right: 10px;
+.menu>.button {
+    float: left;
 }
 
-.menu>.button{
-        float:left;
-
+.menu>div.button:last-child {
+    float: right;
+    margin-right: 0px;
 }
-
-
-.menu>div.button:last-child{
-
-  float: right;
-  margin-right:0px;
-}
-
 
 table {
-    width: 100%; /* Ширина таблицы */
-    background: black; /* Цвет фона таблицы */
-    color: black; /* Цвет текста */
-    border-spacing: 1px; /* Расстояние между ячейками */
+    width: 100%;
+    /* Ширина таблицы */
+    background: black;
+    /* Цвет фона таблицы */
+    color: black;
+    /* Цвет текста */
+    border-spacing: 1px;
+    /* Расстояние между ячейками */
     border-color: green;
     margin-top: 20px;
-   }
+}
+
 td, th {
-  width:33%;
-    padding: 3px; /* Поля вокруг текста */
+    width: 33%;
+    padding: 3px;
+    /* Поля вокруг текста */
     background: white;
     vertical-align: middle;
-    text-align:center;
-       }
-
-  td>div{
-display: inline-block;
-margin-left: 5px;
-
-  }
-
-  td>a{
-
-       float: left;
-  }
-
-  td>a:hover{
-
-    color:  #dd7322;
-  }
-
-.sort{
-  background: url(../img/arrowUp.png) no-repeat;
-  width: 18px;
-  height: 15px;
-  float:right;
-  margin-top:5px;
+    text-align: center;
 }
 
-
-
-.count{
-
-       border-radius: 100%;
-       background: blue;
-       padding: 7px;
-       color: white;
-       float: right;
+td>div {
+    display: inline-block;
+    margin-left: 5px;
 }
 
-.column{
-
-float: left;
-margin-right: 20px;
-margin-top:10px;
+td>a {
+    float: left;
 }
 
-.button
-
-{
-  margin-bottom: 4px;
-
-
+td>a:hover {
+    color: #dd7322;
 }
 
-.button a
-{
+.sort {
+    background: url(../img/arrowUp.png) no-repeat;
+    width: 18px;
+    height: 15px;
+    float: right;
+    margin-top: 5px;
+}
+
+.count {
+    border-radius: 100%;
+    background: gold;
+    padding: 3px 8px;
+    color: #191970;
+    float: right;
+}
+
+.column {
+    float: left;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+.button {
+    margin-bottom: 4px;
+}
+
+.button a {
     padding: 2px 6px 0px;
-    background-color:purple;
+    background-color: purple;
     text-decoration: none;
     border-bottom: 3px solid #aaa;
     font-size: 20px;
-    color:white;
+    color: white;
     margin-bottom: 2px;
 }
-.button>a:hover{
 
-  background-color: #dd7322;
-  border-bottom: 1px solid #aaa;
+.button>a:hover {
+    background-color: #dd7322;
+    border-bottom: 1px solid #aaa;
 }
 
-.column>a{
-
+.column>a {
     float: right;
     margin-top: 10px;
 }
 
-.column:last-child{
-
-  float: right;
-  margin-right: 0;
-
+.column:last-child {
+    float: right;
+    margin-right: 0;
 }
-.error-message{
 
-  color:red;
-
+.error-message {
+    color: red;
 }

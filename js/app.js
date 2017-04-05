@@ -296,16 +296,15 @@ function Filter() {
     }
   );
 
-    if (filter[0].value != "") {
 
         // находим по подстроке название товара, если не удовлетворяет критериям - прячем строку таблицы
 
         goods.forEach(function DeleteRowStyles(item,i) { // при каждом нажатии делаем строки видимыми
-             if (String(item.name).toUpperCase().indexOf(String(filter[0].value).toUpperCase()) == -1) {
+             if ((filter[0].value != "")&&(String(item.name).toUpperCase().indexOf(String(filter[0].value).toUpperCase()) == -1)) {
              trs[i+1].style.display = 'none';}
         }
       );
-        }
+        
     }
 
 function showError(container, errorMessage) {
