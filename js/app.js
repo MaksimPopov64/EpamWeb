@@ -55,6 +55,7 @@ add.onclick = function() {
                 price.value = 0;
             }
             AddRow(1);
+
             goods.push({
                 name: name1.value,
                 count: count.value,
@@ -184,23 +185,20 @@ table.onclick = function(event) {
 
 function CreateGoods()
 
-{ // вывод товаров в таблицу
-
+{ // вывод товаров в таблицун
 
     var nameList = document.querySelectorAll("td>a");
     var countList = document.querySelectorAll(".count");
     var priceList = document.querySelectorAll("td:nth-child(2)");
 
+    goods.forEach(function createContent(item,i) {
 
-
-
-    for (i in goods) {
-
-        nameList[i].innerHTML = goods[i].name;
-        countList[i].innerHTML = goods[i].count;
-        priceList[i].innerHTML = '$' + String(goods[i].price);
+        nameList[i].innerHTML = item.name;
+        countList[i].innerHTML = item.count;
+        priceList[i].innerHTML = '$' + String(item.price);
 
     }
+);
 }
 
 function AddRow(n) //структура таблицы
@@ -292,31 +290,23 @@ function SortName() { // пузырьковая сортировка по име
 
 function Filter() {
     trs = document.querySelectorAll('tr'); // находим все строки
-    for (j = 1; j < trs.length; j++) { // при каждом нажатии делаем строки видимыми
 
-        trs[j].style.display = "";
-
+    trs.forEach(function ClearRowStyles(item) { // при каждом нажатии делаем строки видимыми
+        item.style.display = "";
     }
-    console.log(trs[j]);
+  );
+
     if (filter[0].value != "") {
 
         // находим по подстроке название товара, если не удовлетворяет критериям - прячем строку таблицы
-        for (j = 1; j < trs.length; j++) {
 
-            if (String(goods[j - 1].name).toUpperCase().indexOf(String(filter[0].value).toUpperCase()) == -1) {
-
-                trs[j].style.display = 'none';
-
-            }
-
-
+        goods.forEach(function DeleteRowStyles(item,i) { // при каждом нажатии делаем строки видимыми
+             if (String(item.name).toUpperCase().indexOf(String(filter[0].value).toUpperCase()) == -1) {
+             trs[i+1].style.display = 'none';}
+        }
+      );
         }
     }
-
-
-}
-
-
 
 function showError(container, errorMessage) {
     container.className = 'error';
@@ -332,7 +322,6 @@ function resetError(container) {
         container.removeChild(container.lastChild);
     }
 }
-
 
 function validate() {
     err = 0;
@@ -356,7 +345,6 @@ function validate() {
         err++;
     }
 
-
     resetError(elems.count.parentNode);
     if (!elems.count.value) {
         showError(elems.count.parentNode, ' Укажите количество.');
@@ -368,9 +356,6 @@ function validate() {
         err++;
     }
 
-
-
-
     if (err > 0) {
         return false;
     } else {
@@ -378,8 +363,5 @@ function validate() {
         elems.count.removeAttribute("style");
         return true;
     }
-
-
-
 
 }
