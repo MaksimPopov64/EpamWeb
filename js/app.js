@@ -100,17 +100,22 @@ nameSort.onclick = function() {
 
 priceSort.onclick = function() {//сортировка по цене
 
+  goods.sort(function comparePrice(featureA, featureB) {
+    if(featureA.price > featureB.price)
+             return 1;
+    else if (featureA.price < featureB.price)
+            return -1;
+    else return 0;
+
+                          });
+
     if (x) {
         priceSort.style.background = 'url(img/arrowUp.jpg) no-repeat';
-        goods.sort(function comparePrice(featureA, featureB) {
-          return featureA.price - featureB.price;
-        });
+
         CreateGoods();
     } else {
         priceSort.style.background = 'url(img/arrowDown.png) no-repeat';
-        goods.sort(function comparePrice(featureA, featureB) {
-        return featureB.price - featureA.price;
-        });
+        goods.reverse();
         CreateGoods();
     }
     x = !x
