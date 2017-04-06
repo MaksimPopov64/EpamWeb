@@ -34,9 +34,7 @@ AddRow(goods.length);
 CreateGoods();
 
 add.onclick = function() {
-
     UpdateAdd = document.getElementById("Add/Update");
-
     UpdateAdd.innerHTML = "Add";
     UpdateAdd.style.background="green";
     UpdateAdd.onclick = function()
@@ -47,7 +45,6 @@ add.onclick = function() {
         name1 = document.getElementById("nameInput");
         count = document.getElementById("countInput");
         price = document.getElementById("priceInput");
-
         if ((name1.value != "") && (f))
 
         {
@@ -55,82 +52,71 @@ add.onclick = function() {
                 price.value = 0;
             }
             AddRow(1);
-
             goods.push({
                 name: name1.value,
                 count: count.value,
                 price: price.value
             });
             CreateGoods();
-
-
             //очищаем роля
             name1.value = "";
             count.value = "";
             price.value = "";
             UpdateAdd.innerHTML = "Add/Update";
             UpdateAdd.style.background="";
-
-
         }
-
-
-
     }
 }
 //фильтрация
-
-
-
 search.onclick = function() {
     Filter();
 }
+//сортировка по имени
 
-priceSort.onclick = function() {
+nameSort.onclick = function() {
+  goods.sort(function SortName(featureA, featureB) {
+                if (featureA.name.toLowerCase() > featureB.name.toLowerCase())
+                       return 1;
+                if (featureA.name.toLowerCase() < featureB.name.toLowerCase())
+                     return -1;
+                else
+                  return 0;
+                                });
 
-    SortPrice();
 
-    if (x) {
-        priceSort.innerHTML = "";
-        priceSort.style.background = 'url(img/arrowUp.jpg) no-repeat';
+    if (y) {
+        nameSort.style.background = 'url(img/arrowUp.jpg) no-repeat';
+        CreateGoods();
+    }
+
+    else {
+        nameSort.style.background = 'url(img/arrowDown.png) no-repeat';
         goods.reverse();
         CreateGoods();
+
+    }
+    y = !y
+}
+
+priceSort.onclick = function() {//сортировка по цене
+
+    if (x) {
+        priceSort.style.background = 'url(img/arrowUp.jpg) no-repeat';
+        goods.sort(function comparePrice(featureA, featureB) {
+          return featureA.price - featureB.price;
+        });
+        CreateGoods();
     } else {
-        priceSort.innerHTML = "";
         priceSort.style.background = 'url(img/arrowDown.png) no-repeat';
-        goods.reverse();
+        goods.sort(function comparePrice(featureA, featureB) {
+        return featureB.price - featureA.price;
+        });
         CreateGoods();
     }
     x = !x
 
 }
-//сортировка по имени
-
-
-nameSort.onclick = function() {
-
-    SortName();
-
-    if (y) {
-        nameSort.style.background = 'url(img/arrowUp.jpg) no-repeat';
-        goods.reverse();
-        CreateGoods();
-
-    } else {
-
-        nameSort.style.background = 'url(img/arrowDown.png) no-repeat';
-        goods.reverse();
-        CreateGoods();
-
-
-    }
-    y = !y
-
-
-
-}
 // Удаление и редактирование товаров
-
 table.onclick = function(event) {
 
     target = event.target; // где был клик?
@@ -178,13 +164,11 @@ table.onclick = function(event) {
 
         }
 
-
     }
 }
 
 
 function CreateGoods()
-
 { // вывод товаров в таблицун
 
     var nameList = document.querySelectorAll("td>a");
@@ -192,7 +176,6 @@ function CreateGoods()
     var priceList = document.querySelectorAll("td:nth-child(2)");
 
     goods.forEach(function createContent(item,i) {
-
         nameList[i].innerHTML = item.name;
         countList[i].innerHTML = item.count;
         priceList[i].innerHTML = '$' + String(item.price);
@@ -204,9 +187,7 @@ function CreateGoods()
 function AddRow(n) //структура таблицы
 
 {
-
-
-    for (i = 0; i < n; i++) {
+    for (var i = 0; i < n; i++) {
         row = document.createElement("TR");
         td1 = document.createElement("TD");
         td2 = document.createElement("TD");
@@ -239,53 +220,7 @@ function AddRow(n) //структура таблицы
         EditLink.setAttribute("number", i);
         EditLink.innerHTML = "Edit";
 
-
     }
-}
-
-
-
-function SortPrice() { // сортировка по цене
-
-
-
-    for (i in goods-1) {
-
-        for (j in goods - 1 - i) {
-
-            if (goods[j].price > goods[j + 1].price) {
-
-                buf = goods[j];
-                goods[j] = goods[j + 1];
-                goods[j + 1] = buf;
-            }
-
-        }
-
-    }
-    return goods;
-}
-
-function SortName() { // пузырьковая сортировка по имени
-
-    for (i in goods-1) {
-
-        for (j in goods - 1 - i) {
-
-            if (goods[j + 1].name < goods[j].name) {
-
-                var buf = goods[j + 1];
-                goods[j + 1] = goods[j];
-                goods[j] = buf;
-
-            }
-
-        }
-
-
-    }
-    return goods;
-
 }
 
 function Filter() {
@@ -300,11 +235,13 @@ function Filter() {
         // находим по подстроке название товара, если не удовлетворяет критериям - прячем строку таблицы
 
         goods.forEach(function DeleteRowStyles(item,i) { // при каждом нажатии делаем строки видимыми
-             if ((filter[0].value != "")&&(String(item.name).toUpperCase().indexOf(String(filter[0].value).toUpperCase()) == -1)) {
-             trs[i+1].style.display = 'none';}
+             if ((filter[0].value != "")&&(String(item.name).toUpperCase().indexOf(String(filter[0].value).toUpperCase()) == -1))
+              {
+             trs[i+1].style.display = 'none';
+           }
         }
       );
-        
+
     }
 
 function showError(container, errorMessage) {
@@ -323,8 +260,8 @@ function resetError(container) {
 }
 
 function validate() {
-    err = 0;
-    elems = this.elements;
+    var err = 0;
+    var elems = this.elements;
     elems.name.style.border = "1px solid green";
     elems.count.style.border = "1px solid green";
 
