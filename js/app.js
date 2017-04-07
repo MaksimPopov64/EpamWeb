@@ -20,11 +20,13 @@ var y = false;
 
 
 price.onblur = function() {
-  price.value="$"+price.value;
+  price.value="$"+price.value.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1,');
+
 };
 
 price.onfocus = function() {
-  price.value=price.value.replace("$","");
+  price.value=price.value.replace("$","").replace(",","");
+
 };
 
 function Goods(name, count, price) {
@@ -167,7 +169,7 @@ function CreateGoods()
 
         nameList[i].innerHTML = item.name;
         countList[i].innerHTML = item.count;
-        priceList[i].innerHTML = (String(item.price)[0]=="$")? "$"+String(item.price).replace("$","") : '$' + String(item.price);
+        priceList[i].innerHTML = (String(item.price)[0]=="$")? "$"+String(item.price).replace("$","").replace(",","") : '$' + String(item.price).replace(",","");
     });
 }
 function AddRow(n) { //структура таблицы
