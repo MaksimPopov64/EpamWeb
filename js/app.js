@@ -34,14 +34,14 @@ AddRow(goods.length);
 CreateGoods();
 
 add.onclick = function() {
-    UpdateAdd = document.getElementById("Add/Update");
+    var UpdateAdd = document.getElementById("Add/Update");
     UpdateAdd.innerHTML = "Add";
     UpdateAdd.style.background = "green";
     UpdateAdd.onclick = function() {
-        f = validate.call(form[0]);
-        name1 = document.getElementById("nameInput");
-        count = document.getElementById("countInput");
-        price = document.getElementById("priceInput");
+      var f = validate.call(form[0]);
+        var name1 = document.getElementById("nameInput");
+        var count = document.getElementById("countInput");
+        var price = document.getElementById("priceInput");
         if ((name1.value != "") && (f)) {
             if (price.value == "") {
                 price.value = 0;
@@ -108,9 +108,9 @@ priceSort.onclick = function() {
 }
 // Удаление и редактирование товаров
 table.onclick = function(event) {
-    target = event.target; // где был клик?
+    var target = event.target; // где был клик?
     if (target.innerHTML == "Delete") {
-        confirmation = confirm("Вы уверены?");
+      var  confirmation = confirm("Вы уверены?");
         if (confirmation) {
             number = target.getAttribute("number");
             goods.splice(target.parentNode.parentNode.parentNode.rowIndex - 1, 1); //удаляем товар из этой строки
@@ -118,15 +118,17 @@ table.onclick = function(event) {
         }
     } else if (target.innerHTML == "Edit") {
         EditButton.innerHTML = "Update";
-        number = target.getAttribute("number");
+        var number = target.getAttribute("number");
         target.style.background = 'red';
         EditButton.style.background = 'red';
         UpdateAdd.onclick = function() {
-            name1 = document.getElementById("nameInput");
-            count = document.getElementById("countInput");
-            price = document.getElementById("priceInput");
-            f = validate.call(form[0]);
+          var  name1 = document.getElementById("nameInput");
+            var count = document.getElementById("countInput");
+          var  price = document.getElementById("priceInput");
+          console.log(1);
+          var  f = validate.call(form[0]);
             if ((name1.value != "") && (f)) {
+
                 goods[number].name = String(name1.value);
                 goods[number].count = Number(count.value);
                 if (price.value == "") {
@@ -161,33 +163,33 @@ function CreateGoods()
 }
 function AddRow(n) { //структура таблицы
     for (var i = 0; i < n; i++) {
-        row = document.createElement("TR");
-        td1 = document.createElement("TD");
-        td2 = document.createElement("TD");
-        td3 = document.createElement("TD");
+        var row = document.createElement("TR");
+        var td1 = document.createElement("TD");
+        var td2 = document.createElement("TD");
+        var td3 = document.createElement("TD");
         row.appendChild(td1);
         row.appendChild(td2);
         row.appendChild(td3);
         table.appendChild(row);
         row.setAttribute("number", i);
-        link = document.createElement("a");
+        var link = document.createElement("a");
         td1.appendChild(link);
         link.setAttribute("href", "#");
-        div = document.createElement("div");
+        var div = document.createElement("div");
         td1.appendChild(div);
         div.classList.add('count');
-        buttonDelete = document.createElement("div");
-        buttonEdit = document.createElement("div");
+        var  buttonDelete = document.createElement("div");
+        var   buttonEdit = document.createElement("div");
         buttonEdit.classList.add('button');
         buttonDelete.classList.add('button');
         td3.appendChild(buttonDelete);
         td3.appendChild(buttonEdit);
-        DeleteLink = document.createElement("a");
+        var   DeleteLink = document.createElement("a");
         buttonDelete.appendChild(DeleteLink);
         DeleteLink.setAttribute("href", "#");
         DeleteLink.setAttribute("number", i);
         DeleteLink.innerHTML = "Delete";
-        EditLink = document.createElement("a");
+      var   EditLink = document.createElement("a");
         buttonEdit.appendChild(EditLink);
         EditLink.setAttribute("href", "#");
         EditLink.setAttribute("number", i);
@@ -213,15 +215,13 @@ function showError(container, errorMessage) {
     msgElem.innerHTML = errorMessage;
     container.appendChild(msgElem);
 }
-function
-resetError(container) {
+function resetError(container) {
     container.className = '';
     if (container.lastChild.className == "error-message") {
         container.removeChild(container.lastChild);
     }
 }
-function
-validate() {
+function validate() {
     var err = 0;
     var elems = this.elements;
     elems.name.style.border = "1px solid green";
@@ -251,16 +251,11 @@ validate() {
         err++;
     }
     if (err > 0) {
-        return
-        false;
-    } else {
-        elems
-            .name
-            .removeAttribute("style");
-        elems
-            .count
-            .removeAttribute("style");
-        return
-        true;
+        return  false;
+    }
+    else {
+        elems.name.removeAttribute("style");
+        elems.count.removeAttribute("style");
+        return true;
     }
 }
