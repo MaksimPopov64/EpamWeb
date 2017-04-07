@@ -8,62 +8,43 @@ var filter = document.getElementsByTagName('input'); //находим все inp
 var EditButton = document.querySelector(".column>a");
 var UpdateAdd = document.getElementById("Add/Update");
 var x = false;
-var y=false;
-
+var y = false;
 function Goods(name, count, price) {
-    return {
-        name: '',
-        count: '',
-        price: ''
-    }
+    return {name: '', count: '', price: ''}
 }
-
 var goods = [];
 //инициализируем список товаров
 for (var i = 0; i < 6; i++) {
-
     goods.push({
         name: 'Товар' + i,
         count: i,
         price: 1200 + i
     });
-
 }
 AddRow(goods.length);
-
 CreateGoods();
-
 add.onclick = function() {
     UpdateAdd = document.getElementById("Add/Update");
     UpdateAdd.innerHTML = "Add";
-    UpdateAdd.style.background="green";
-    UpdateAdd.onclick = function()
-
-    {
-
+    UpdateAdd.style.background = "green";
+    UpdateAdd.onclick = function() {
         f = validate.call(form[0]);
         name1 = document.getElementById("nameInput");
         count = document.getElementById("countInput");
         price = document.getElementById("priceInput");
-        if ((name1.value != "") && (f))
-
-        {
+        if ((name1.value != "") && (f)) {
             if (price.value == "") {
                 price.value = 0;
             }
             AddRow(1);
-            goods.push({
-                name: name1.value,
-                count: count.value,
-                price: price.value
-            });
+            goods.push({name: name1.value, count: count.value, price: price.value});
             CreateGoods();
             //очищаем роля
             name1.value = "";
             count.value = "";
             price.value = "";
             UpdateAdd.innerHTML = "Add/Update";
-            UpdateAdd.style.background="";
+            UpdateAdd.style.background = "";
         }
     }
 }
@@ -72,46 +53,41 @@ search.onclick = function() {
     Filter();
 }
 //сортировка по имени
-
 nameSort.onclick = function() {
-  goods.sort(function SortName(featureA, featureB) {
-                if (featureA.name.toLowerCase() > featureB.name.toLowerCase())
-                       return 1;
-                if (featureA.name.toLowerCase() < featureB.name.toLowerCase())
-                     return -1;
-                else
-                  return 0;
-                                });
-
-
+    goods
+        .sort(function SortName(featureA, featureB) {
+            if (featureA.name.toLowerCase() > featureB.name.toLowerCase())
+                return 1;
+            if (featureA.name.toLowerCase() < featureB.name.toLowerCase())
+                return -1;
+            else
+                return 0;
+            }
+        );
     if (y) {
         nameSort.style.background = 'url(img/arrowUp.jpg) no-repeat';
         CreateGoods();
-    }
-
-    else {
+    } else {
         nameSort.style.background = 'url(img/arrowDown.png) no-repeat';
         goods.reverse();
         CreateGoods();
-
     }
     y = !y
 }
-
-priceSort.onclick = function() {//сортировка по цене
-
-  goods.sort(function comparePrice(featureA, featureB) {
-    if(featureA.price > featureB.price)
-             return 1;
-    else if (featureA.price < featureB.price)
-            return -1;
-    else return 0;
-
-                          });
-
+priceSort.onclick = function() {
+    //сортировка по цене
+    goods
+        .sort(function comparePrice(featureA, featureB) {
+            if (featureA.price > featureB.price)
+                return 1;
+            else if (featureA.price < featureB.price)
+                return -1;
+            else
+                return 0;
+            }
+        );
     if (x) {
         priceSort.style.background = 'url(img/arrowUp.jpg) no-repeat';
-
         CreateGoods();
     } else {
         priceSort.style.background = 'url(img/arrowDown.png) no-repeat';
@@ -119,13 +95,10 @@ priceSort.onclick = function() {//сортировка по цене
         CreateGoods();
     }
     x = !x
-
 }
 // Удаление и редактирование товаров
 table.onclick = function(event) {
-
     target = event.target; // где был клик?
-
     if (target.innerHTML == "Delete") {
         confirmation = confirm("Вы уверены?");
         if (confirmation) {
@@ -133,23 +106,17 @@ table.onclick = function(event) {
             goods.splice(target.parentNode.parentNode.parentNode.rowIndex - 1, 1); //удаляем товар из этой строки
             table.deleteRow(target.parentNode.parentNode.parentNode.rowIndex);
         }
-    } else if (target.innerHTML == "Edit")
-
-    {
-
+    } else if (target.innerHTML == "Edit") {
         EditButton.innerHTML = "Update";
         number = target.getAttribute("number");
-        target.style.background='red';
-        EditButton.style.background='red';
+        target.style.background = 'red';
+        EditButton.style.background = 'red';
         UpdateAdd.onclick = function() {
             name1 = document.getElementById("nameInput");
             count = document.getElementById("countInput");
             price = document.getElementById("priceInput");
             f = validate.call(form[0]);
-            if ((name1.value != "") && (f))
-
-            {
-
+            if ((name1.value != "") && (f)) {
                 goods[number].name = String(name1.value);
                 goods[number].count = Number(count.value);
                 if (price.value == "") {
@@ -163,36 +130,24 @@ table.onclick = function(event) {
                 count.value = "";
                 price.value = "";
                 CreateGoods();
-                target.style.background='';
-                EditButton.style.background='';
+                target.style.background = '';
+                EditButton.style.background = '';
             }
-
         }
-
     }
 }
-
-
-function CreateGoods()
-{ // вывод товаров в таблицун
-
+function CreateGoods() { // вывод товаров в таблицун
     var nameList = document.querySelectorAll("td>a");
     var countList = document.querySelectorAll(".count");
     var priceList = document.querySelectorAll("td:nth-child(2)");
-
-    goods.forEach(function createContent(item,i) {
+    goods.forEach(function createContent(item, i) {
         nameList[i].innerHTML = item.name;
         countList[i].innerHTML = item.count;
         priceList[i].innerHTML = '$' + String(item.price);
-
-    }
-);
+    });
 }
-
-function AddRow(n) //структура таблицы
-
-{
-    for (var i = 0; i < n; i++) {
+function AddRow(n) { //структура таблицы
+    for (vari = 0; i < n; i++) {
         row = document.createElement("TR");
         td1 = document.createElement("TD");
         td2 = document.createElement("TD");
@@ -207,11 +162,17 @@ function AddRow(n) //структура таблицы
         link.setAttribute("href", "#");
         div = document.createElement("div");
         td1.appendChild(div);
-        div.classList.add('count');
+        div
+            .classList
+            .add('count');
         buttonDelete = document.createElement("div");
         buttonEdit = document.createElement("div");
-        buttonEdit.classList.add('button');
-        buttonDelete.classList.add('button');
+        buttonEdit
+            .classList
+            .add('button');
+        buttonDelete
+            .classList
+            .add('button');
         td3.appendChild(buttonDelete);
         td3.appendChild(buttonEdit);
         DeleteLink = document.createElement("a");
@@ -224,31 +185,20 @@ function AddRow(n) //структура таблицы
         EditLink.setAttribute("href", "#");
         EditLink.setAttribute("number", i);
         EditLink.innerHTML = "Edit";
-
     }
 }
-
 function Filter() {
     trs = document.querySelectorAll('tr'); // находим все строки
-
-    trs.forEach(function ClearRowStyles(item) { // при каждом нажатии делаем строки видимыми
-        item.style.display = "";
-    }
-  );
-
-
-        // находим по подстроке название товара, если не удовлетворяет критериям - прячем строку таблицы
-
-        goods.forEach(function DeleteRowStyles(item,i) { // при каждом нажатии делаем строки видимыми
-             if ((filter[0].value != "")&&(String(item.name).toUpperCase().indexOf(String(filter[0].value).toUpperCase()) == -1))
-              {
-             trs[i+1].style.display = 'none';
-           }
+    trs.forEach(functionClearRowStyles(item)) { // при каждом нажатии делаем строки видимыми
+        return item.style.display = "";
+    });
+    // находим по подстроке название товара, если не удовлетворяет критериям - прячем строку таблицы
+    goods.forEach(functionDeleteRowStyles(item, i) { // при каждом нажатии делаем строки видимыми
+        if ((filter[0].value != "") && (String(item.name).toUpperCase().indexOf(String(filter[0].value).toUpperCase()) == -1)) {
+            trs[i + 1].style.display = 'none';
         }
-      );
-
-    }
-
+    });
+}
 function showError(container, errorMessage) {
     container.className = 'error';
     msgElem = document.createElement('span');
@@ -256,26 +206,24 @@ function showError(container, errorMessage) {
     msgElem.innerHTML = errorMessage;
     container.appendChild(msgElem);
 }
-
-function resetError(container) {
+function
+resetError(container) {
     container.className = '';
     if (container.lastChild.className == "error-message") {
         container.removeChild(container.lastChild);
     }
 }
-
-function validate() {
+function
+validate() {
     var err = 0;
     var elems = this.elements;
     elems.name.style.border = "1px solid green";
     elems.count.style.border = "1px solid green";
-
     resetError(elems.name.parentNode);
     if (!elems.name.value) {
         showError(elems.name.parentNode, ' Укажите наименование.');
         elems.name.style.border = "1px solid #ff0000";
         err++;
-
     } else if (elems.name.value.search(/[A-zА-яЁё]/) == -1) {
         showError(elems.name.parentNode, 'Введите буквы');
         elems.name.style.border = "1px solid #ff0000";
@@ -285,7 +233,6 @@ function validate() {
         elems.name.style.border = "1px solid #ff0000";
         err++;
     }
-
     resetError(elems.count.parentNode);
     if (!elems.count.value) {
         showError(elems.count.parentNode, ' Укажите количество.');
@@ -296,13 +243,17 @@ function validate() {
         elems.count.style.border = "1px solid #ff0000";
         err++;
     }
-
     if (err > 0) {
-        return false;
+        return
+        false;
     } else {
-        elems.name.removeAttribute("style");
-        elems.count.removeAttribute("style");
-        return true;
+        elems
+            .name
+            .removeAttribute("style");
+        elems
+            .count
+            .removeAttribute("style");
+        return
+        true;
     }
-
 }
