@@ -20,6 +20,7 @@ var y = false;
 
 
 price.onblur = function() {
+
   price.value="$"+price.value.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1,');
 
 };
@@ -61,7 +62,9 @@ add.onclick = function() {
 
             price.value = (price.value == "") ? 0 : price.value;
             AddRow(1);
-            goods.push({name: name1.value,
+            goods.push(
+              {
+              name: name1.value,
                count: count.value,
                price: price.value
              });
@@ -169,8 +172,8 @@ function CreateGoods()
 
         nameList[i].innerHTML = item.name;
         countList[i].innerHTML = item.count;
-        priceList[i].innerHTML = (String(item.price)[0]=="$") ? "$" + String(item.price).replace("$","").replace(new RegExp(",",'g'),"")
- : '$' + String(item.price).replace(new RegExp(",",'g'),"");
+        priceList[i].innerHTML = (String(item.price)[0]=="$") ? "$" + Number(String(item.price).replace("$","").replace(new RegExp(",",'g'),""))
+ : '$' + Number(String(item.price).replace(new RegExp(",",'g'),""));
     });
 }
 function AddRow(n) { //структура таблицы
