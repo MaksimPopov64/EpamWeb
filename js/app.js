@@ -25,7 +25,7 @@ price.onblur = function() {
 };
 
 price.onfocus = function() {
-  price.value=price.value.replace("$","").replace(",","");
+  price.value=price.value.replace("$","").replace(new RegExp(",",'g'),"");
 
 };
 
@@ -169,7 +169,8 @@ function CreateGoods()
 
         nameList[i].innerHTML = item.name;
         countList[i].innerHTML = item.count;
-        priceList[i].innerHTML = (String(item.price)[0]=="$")? "$"+String(item.price).replace("$","").replace(",","") : '$' + String(item.price).replace(",","");
+        priceList[i].innerHTML = (String(item.price)[0]=="$") ? "$" + String(item.price).replace("$","").replace(new RegExp(",",'g'),"")
+ : '$' + String(item.price).replace(new RegExp(",",'g'),"");
     });
 }
 function AddRow(n) { //структура таблицы
