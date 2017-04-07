@@ -9,9 +9,16 @@ var EditButton = document.querySelector(".column>a");
 var UpdateAdd = document.getElementById("Add/Update");
 var x = false;
 var y = false;
+
 function Goods(name, count, price) {
-    return {name: '', count: '', price: ''}
+   return {
+
+     name: '',
+     count: '',
+     price: ''
+ }
 }
+
 var goods = [];
 //инициализируем список товаров
 for (var i = 0; i < 6; i++) {
@@ -21,8 +28,11 @@ for (var i = 0; i < 6; i++) {
         price: 1200 + i
     });
 }
+
 AddRow(goods.length);
+
 CreateGoods();
+
 add.onclick = function() {
     UpdateAdd = document.getElementById("Add/Update");
     UpdateAdd.innerHTML = "Add";
@@ -136,18 +146,21 @@ table.onclick = function(event) {
         }
     }
 }
-function CreateGoods() { // вывод товаров в таблицун
+function CreateGoods()
+{ // вывод товаров в таблицу
     var nameList = document.querySelectorAll("td>a");
     var countList = document.querySelectorAll(".count");
     var priceList = document.querySelectorAll("td:nth-child(2)");
+
     goods.forEach(function createContent(item, i) {
+
         nameList[i].innerHTML = item.name;
         countList[i].innerHTML = item.count;
         priceList[i].innerHTML = '$' + String(item.price);
     });
 }
 function AddRow(n) { //структура таблицы
-    for (vari = 0; i < n; i++) {
+    for (var i = 0; i < n; i++) {
         row = document.createElement("TR");
         td1 = document.createElement("TD");
         td2 = document.createElement("TD");
@@ -162,17 +175,11 @@ function AddRow(n) { //структура таблицы
         link.setAttribute("href", "#");
         div = document.createElement("div");
         td1.appendChild(div);
-        div
-            .classList
-            .add('count');
+        div.classList.add('count');
         buttonDelete = document.createElement("div");
         buttonEdit = document.createElement("div");
-        buttonEdit
-            .classList
-            .add('button');
-        buttonDelete
-            .classList
-            .add('button');
+        buttonEdit.classList.add('button');
+        buttonDelete.classList.add('button');
         td3.appendChild(buttonDelete);
         td3.appendChild(buttonEdit);
         DeleteLink = document.createElement("a");
@@ -188,12 +195,12 @@ function AddRow(n) { //структура таблицы
     }
 }
 function Filter() {
-    trs = document.querySelectorAll('tr'); // находим все строки
-    trs.forEach(functionClearRowStyles(item)) { // при каждом нажатии делаем строки видимыми
+    var trs = document.querySelectorAll('tr');
+    trs.forEach(function ClearRowStyles(item) { // при каждом нажатии делаем строки видимыми
         return item.style.display = "";
     });
     // находим по подстроке название товара, если не удовлетворяет критериям - прячем строку таблицы
-    goods.forEach(functionDeleteRowStyles(item, i) { // при каждом нажатии делаем строки видимыми
+    goods.forEach(function DeleteRowStyles(item, i) { // при каждом нажатии делаем строки видимыми
         if ((filter[0].value != "") && (String(item.name).toUpperCase().indexOf(String(filter[0].value).toUpperCase()) == -1)) {
             trs[i + 1].style.display = 'none';
         }
@@ -201,7 +208,7 @@ function Filter() {
 }
 function showError(container, errorMessage) {
     container.className = 'error';
-    msgElem = document.createElement('span');
+    var msgElem = document.createElement('span');
     msgElem.className = "error-message";
     msgElem.innerHTML = errorMessage;
     container.appendChild(msgElem);
