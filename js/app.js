@@ -12,8 +12,20 @@ var table = document.getElementsByTagName("TBODY")[0];
 var filter = document.getElementsByTagName('input'); //находим все input
 var EditButton = document.querySelector(".column>a");
 var UpdateAdd = document.getElementById("Add/Update");
+var  name1 = document.getElementById("nameInput");
+var  count = document.getElementById("countInput");
+var  price = document.getElementById("priceInput");
 var x = false;
 var y = false;
+
+
+price.onblur = function() {
+  price.value="$"+price.value;
+};
+
+price.onfocus = function() {
+  price.value=price.value.replace("$","");
+};
 
 function Goods(name, count, price) {
    return {
@@ -43,16 +55,14 @@ add.onclick = function() {
     UpdateAdd.innerHTML = "Add";
     UpdateAdd.style.background = "green";
     UpdateAdd.onclick = function() {
-      var f = validate.call(form[0]);
-        var name1 = document.getElementById("nameInput");
-        var count = document.getElementById("countInput");
-        var price = document.getElementById("priceInput");
-        if ((name1.value != "") && (f)) {
-            if (price.value == "") {
-                price.value = 0;
-            }
+        if (validate.call(form[0])) {
+
+            price.value = (price.value == "") ? 0 : price.value;
             AddRow(1);
-            goods.push({name: name1.value, count: count.value, price: price.value});
+            goods.push({name: name1.value,
+               count: count.value,
+               price: price.value
+             });
             CreateGoods();
             //очищаем роля
             name1.value = "";
@@ -76,8 +86,7 @@ nameSort.onclick = function() {
                 return -1;
             else
                 return 0;
-            }
-        );
+            });
     if (y) {
         nameSort.style.background = 'url(img/arrowUp.jpg) no-repeat';
         CreateGoods();
@@ -125,12 +134,9 @@ table.onclick = function(event) {
         target.style.background = 'red';
         EditButton.style.background = 'red';
         UpdateAdd.onclick = function() {
-          var  name1 = document.getElementById("nameInput");
-            var count = document.getElementById("countInput");
-          var  price = document.getElementById("priceInput");
-          console.log(1);
-          var  f = validate.call(form[0]);
-            if ((name1.value != "") && (f)) {
+
+
+          if (validate.call(form[0])) {
 
                 goods[number].name = String(name1.value);
                 goods[number].count = Number(count.value);
@@ -161,7 +167,7 @@ function CreateGoods()
 
         nameList[i].innerHTML = item.name;
         countList[i].innerHTML = item.count;
-        priceList[i].innerHTML = '$' + String(item.price);
+        priceList[i].innerHTML = (String(item.price)[0]=="$")? "$"+String(item.price).replace("$","") : '$' + String(item.price);
     });
 }
 function AddRow(n) { //структура таблицы
