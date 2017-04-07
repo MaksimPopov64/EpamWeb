@@ -1,5 +1,8 @@
 
+"use strict";
+
 (function(){
+
 var form = document.getElementsByTagName("form");
 var priceSort = document.getElementById('price');
 var nameSort = document.querySelector(".sort");
@@ -66,8 +69,7 @@ search.onclick = function() {
 }
 //сортировка по имени
 nameSort.onclick = function() {
-    goods
-        .sort(function SortName(featureA, featureB) {
+    goods.sort(function SortName(featureA, featureB) {
             if (featureA.name.toLowerCase() > featureB.name.toLowerCase())
                 return 1;
             if (featureA.name.toLowerCase() < featureB.name.toLowerCase())
@@ -88,8 +90,7 @@ nameSort.onclick = function() {
 }
 priceSort.onclick = function() {
     //сортировка по цене
-    goods
-        .sort(function comparePrice(featureA, featureB) {
+    goods.sort(function comparePrice(featureA, featureB) {
             if (featureA.price > featureB.price)
                 return 1;
             else if (featureA.price < featureB.price)
@@ -112,9 +113,9 @@ priceSort.onclick = function() {
 table.onclick = function(event) {
     var target = event.target; // где был клик?
     if (target.innerHTML == "Delete") {
-      var  confirmation = confirm("Вы уверены?");
+      var confirmation = confirm("Вы уверены?");
         if (confirmation) {
-            number = target.getAttribute("number");
+            var number = target.getAttribute("number");
             goods.splice(target.parentNode.parentNode.parentNode.rowIndex - 1, 1); //удаляем товар из этой строки
             table.deleteRow(target.parentNode.parentNode.parentNode.rowIndex);
         }
@@ -180,18 +181,18 @@ function AddRow(n) { //структура таблицы
         var div = document.createElement("div");
         td1.appendChild(div);
         div.classList.add('count');
-        var  buttonDelete = document.createElement("div");
-        var   buttonEdit = document.createElement("div");
+        var buttonDelete = document.createElement("div");
+        var buttonEdit = document.createElement("div");
         buttonEdit.classList.add('button');
         buttonDelete.classList.add('button');
         td3.appendChild(buttonDelete);
         td3.appendChild(buttonEdit);
-        var   DeleteLink = document.createElement("a");
+        var DeleteLink = document.createElement("a");
         buttonDelete.appendChild(DeleteLink);
         DeleteLink.setAttribute("href", "#");
         DeleteLink.setAttribute("number", i);
         DeleteLink.innerHTML = "Delete";
-      var   EditLink = document.createElement("a");
+        var EditLink = document.createElement("a");
         buttonEdit.appendChild(EditLink);
         EditLink.setAttribute("href", "#");
         EditLink.setAttribute("number", i);
@@ -205,11 +206,12 @@ function Filter() {
     });
     // находим по подстроке название товара, если не удовлетворяет критериям - прячем строку таблицы
     goods.forEach(function DeleteRowStyles(item, i) { // при каждом нажатии делаем строки видимыми
-        if ((filter[0].value != "") && (String(item.name).toUpperCase().indexOf(String(filter[0].value).toUpperCase()) == -1)) {
-            trs[i + 1].style.display = 'none';
+    if ((filter[0].value != "") && (String(item.name).toUpperCase().indexOf(String(filter[0].value).toUpperCase()) == -1)) {
+          trs[i + 1].style.display = 'none';
         }
     });
 }
+
 function showError(container, errorMessage) {
     container.className = 'error';
     var msgElem = document.createElement('span');
