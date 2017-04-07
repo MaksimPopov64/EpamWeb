@@ -1,3 +1,5 @@
+
+(function(){
 var form = document.getElementsByTagName("form");
 var priceSort = document.getElementById('price');
 var nameSort = document.querySelector(".sort");
@@ -259,3 +261,4 @@ function validate() {
         return true;
     }
 }
+})();
